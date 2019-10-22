@@ -82,7 +82,7 @@ REM We can't use "make install", since our files end in .exe (among other things
 REM and the yosys "make install" target assumes files have no suffix.
 REM if errorlevel 1 exit 1
 
-mkdir.exe -p %PREFIX%\bin
+mkdir %PREFIX%\bin
 if errorlevel 1 exit 1
 cp yosys.exe %PREFIX%\bin\yosys.exe
 if errorlevel 1 exit 1
@@ -94,7 +94,7 @@ cp yosys-smtbmc %PREFIX%\bin\yosys-smtbmc
 if errorlevel 1 exit 1
 cp yosys-config %PREFIX%\bin\yosys-config
 if errorlevel 1 exit 1
-mkdir.exe -p %PREFIX%\share
+mkdir %PREFIX%\share
 if errorlevel 1 exit 1
 cp -r share/. %PREFIX%\share\yosys\.
 
