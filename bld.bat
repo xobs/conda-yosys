@@ -40,8 +40,10 @@ sed -i "s/LDFLAGS += -rdynamic/LDFLAGS +=/;" Makefile
 REM ABCMKARGS="CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ LIBS=\""-static -lm\"" OPTFLAGS=-O ABC_USE_STDINT_H=1 ABC_USE_NO_READLINE=1 ABC_USE_NO_PTHREADS=1 ABC_USE_LIBSTDCXX=1" ^
 
 make ^
+     -j%CPU_COUNT% ^
      YOSYS_VER="$VER (Fomu build)" ^
      PRETTY=0 ^
+     CXXFLAGS=" -DYOSYS_WIN32_UNIX_DIR " ^
      ABCREV=default ^
      LDLIBS="-static -lstdc++ -lm" ^
      ABCMKARGS="CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ LIBS=\"-static -lm\" OPTFLAGS=-O ABC_USE_NO_READLINE=1 ABC_USE_NO_PTHREADS=1 ABC_USE_LIBSTDCXX=1 ARCHFLAGS=\"-DSIZEOF_VOID_P=8 -DSIZEOF_LONG=4 -DNT64 -DSIZEOF_INT=4 -DWIN32_NO_DLL -DHAVE_STRUCT_TIMESPEC -D_POSIX_SOURCE -fpermissive -w\"" ^
@@ -64,8 +66,10 @@ REM Restarting the build results in a working binary, so ignore the failure for 
 REM just try restarting the build.
 
 make ^
+     -j%CPU_COUNT% ^
      YOSYS_VER="$VER (Fomu build)" ^
      PRETTY=0 ^
+     CXXFLAGS=" -DYOSYS_WIN32_UNIX_DIR " ^
      ABCREV=default ^
      LDLIBS="-static -lstdc++ -lm" ^
      ABCMKARGS="CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ LIBS=\"-static -lm\" OPTFLAGS=-O ABC_USE_NO_READLINE=1 ABC_USE_NO_PTHREADS=1 ABC_USE_LIBSTDCXX=1 ARCHFLAGS=\"-DSIZEOF_VOID_P=8 -DSIZEOF_LONG=4 -DNT64 -DSIZEOF_INT=4 -DWIN32_NO_DLL -DHAVE_STRUCT_TIMESPEC -D_POSIX_SOURCE -fpermissive -w\"" ^
@@ -97,6 +101,7 @@ if errorlevel 1 exit 1
 mkdir %PREFIX%\share
 if errorlevel 1 exit 1
 cp -r share/. %PREFIX%\share\yosys\.
+if errorlevel 1 exit 1
 
 %PREFIX%\bin\yosys -V
 %PREFIX%\bin\yosys-abc -v 2>&1 | find "compiled"
