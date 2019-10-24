@@ -30,6 +30,9 @@ cd ..
 
 make config-gcc
 if errorlevel 1 exit 1
+
+echo CXXFLAGS += -DYOSYS_WIN32_UNIX_DIR >> Makefile.conf
+
 sed -i "s/-fPIC/-fpermissive/;" Makefile
 sed -i "s/-Wall -Wextra -ggdb/-w/;" Makefile
 sed -i "s/LD = gcc$/LD = %CC%/;" Makefile
@@ -43,7 +46,6 @@ make ^
      -j%CPU_COUNT% ^
      YOSYS_VER="$VER (Fomu build)" ^
      PRETTY=0 ^
-     CXXFLAGS=" -DYOSYS_WIN32_UNIX_DIR " ^
      ABCREV=default ^
      LDLIBS="-static -lstdc++ -lm" ^
      ABCMKARGS="CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ LIBS=\"-static -lm\" OPTFLAGS=-O ABC_USE_NO_READLINE=1 ABC_USE_NO_PTHREADS=1 ABC_USE_LIBSTDCXX=1 ARCHFLAGS=\"-DSIZEOF_VOID_P=8 -DSIZEOF_LONG=4 -DNT64 -DSIZEOF_INT=4 -DWIN32_NO_DLL -DHAVE_STRUCT_TIMESPEC -D_POSIX_SOURCE -fpermissive -w\"" ^
@@ -69,7 +71,6 @@ make ^
      -j%CPU_COUNT% ^
      YOSYS_VER="$VER (Fomu build)" ^
      PRETTY=0 ^
-     CXXFLAGS=" -DYOSYS_WIN32_UNIX_DIR " ^
      ABCREV=default ^
      LDLIBS="-static -lstdc++ -lm" ^
      ABCMKARGS="CC=x86_64-w64-mingw32-gcc CXX=x86_64-w64-mingw32-g++ LIBS=\"-static -lm\" OPTFLAGS=-O ABC_USE_NO_READLINE=1 ABC_USE_NO_PTHREADS=1 ABC_USE_LIBSTDCXX=1 ARCHFLAGS=\"-DSIZEOF_VOID_P=8 -DSIZEOF_LONG=4 -DNT64 -DSIZEOF_INT=4 -DWIN32_NO_DLL -DHAVE_STRUCT_TIMESPEC -D_POSIX_SOURCE -fpermissive -w\"" ^
