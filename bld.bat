@@ -32,6 +32,7 @@ make config-gcc
 if errorlevel 1 exit 1
 
 echo CXXFLAGS += -DYOSYS_WIN32_UNIX_DIR >> Makefile.conf
+echo PREFIX = /usr/local >> Makefile.conf
 
 sed -i "s/-fPIC/-fpermissive/;" Makefile
 sed -i "s/-Wall -Wextra -ggdb/-w/;" Makefile
@@ -54,8 +55,7 @@ make ^
      ENABLE_READLINE=0 ^
      ENABLE_COVER=0 ^
      ENABLE_ZLIB=0 ^
-     ENABLE_ABC=1 ^
-     PREFIX=%PREFIX%
+     ENABLE_ABC=1
 
 REM The first build seems to fail sometimes with the following error:
 REM      -> ABC: `` Compiling: /src/base/abci/abcRenode.c
@@ -79,8 +79,7 @@ make ^
      ENABLE_READLINE=0 ^
      ENABLE_COVER=0 ^
      ENABLE_ZLIB=0 ^
-     ENABLE_ABC=1 ^
-     PREFIX=%PREFIX%
+     ENABLE_ABC=1
 if errorlevel 1 exit 1
 
 REM We can't use "make install", since our files end in .exe (among other things)
